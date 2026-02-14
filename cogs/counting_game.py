@@ -2,7 +2,7 @@ import discord
 import cogs.variables as var
 from discord.ext import commands
 from discord import app_commands
-from .ai_commentator import openai_response
+from .ai_generation import ai_response
 
 
 class counting_game(commands.Cog):
@@ -40,7 +40,7 @@ class counting_game(commands.Cog):
 
         if message.author.id == self.bot.last_user_id:
             try:
-                repeated_user_response = await openai_response(
+                repeated_user_response = await ai_response(
                     user_prompt="I've counted consequtively knowing that I shouldn't, which has broken the flow of the counting game."
                 )
                 await message.reply(content=repeated_user_response)
@@ -56,7 +56,7 @@ class counting_game(commands.Cog):
 
         if counted_number != self.bot.current_count + 1:
             try:
-                not_consecutive_response = await openai_response(
+                not_consecutive_response = await ai_response(
                     user_prompt="I've misread the previous number and sent in the wrong one, breaking the flow of the counting game."
                     )
                 await message.reply(content=not_consecutive_response)
@@ -173,7 +173,7 @@ class counting_game(commands.Cog):
             return
         if before.id == self.bot.latest_message:
             try:
-                edited_response = await openai_response(
+                edited_response = await ai_response(
                     user_prompt="I have attempted to deceive the others playing the counting game by editing my message."
                 )
                 await before.channel.send(content=
@@ -195,7 +195,7 @@ class counting_game(commands.Cog):
             return
         if message.id == self.bot.latest_message:
             try:
-                deleted_response = await openai_response(
+                deleted_response = await ai_response(
                     user_prompt="I have attempted to deceive the others playing the counting game by deleting my message."
                     )
                 await message.channel.send(content=

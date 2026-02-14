@@ -1,3 +1,5 @@
-discord.py
+discord
 python-dotenv
-openai
+langchain
+langchain-openai
+langchain-tavily
