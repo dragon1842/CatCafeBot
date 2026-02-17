@@ -41,7 +41,8 @@ class counting_game(commands.Cog):
         if message.author.id == self.bot.last_user_id:
             try:
                 repeated_user_response = await ai_response(
-                    user_prompt="I've counted consequtively knowing that I shouldn't, which has broken the flow of the counting game."
+                    mode="retort",
+                    prompt="I've counted consequtively knowing that I shouldn't, which has broken the flow of the counting game."
                 )
                 await message.reply(content=repeated_user_response)
             except Exception as e:
@@ -57,7 +58,8 @@ class counting_game(commands.Cog):
         if counted_number != self.bot.current_count + 1:
             try:
                 not_consecutive_response = await ai_response(
-                    user_prompt="I've misread the previous number and sent in the wrong one, breaking the flow of the counting game."
+                    mode="retort", 
+                    prompt="I've misread the previous number and sent in the wrong one, which has broken the flow of the counting game."
                     )
                 await message.reply(content=not_consecutive_response)
             except Exception as e:
@@ -174,7 +176,8 @@ class counting_game(commands.Cog):
         if before.id == self.bot.latest_message:
             try:
                 edited_response = await ai_response(
-                    user_prompt="I have attempted to deceive the others playing the counting game by editing my message."
+                    mode="retort", 
+                    prompt="I have attempted to deceive the others playing the counting game by editing my message."
                 )
                 await before.channel.send(content=
                     (f"{edited_response}\nThe number was {self.bot.current_count}.\n"
@@ -196,7 +199,8 @@ class counting_game(commands.Cog):
         if message.id == self.bot.latest_message:
             try:
                 deleted_response = await ai_response(
-                    user_prompt="I have attempted to deceive the others playing the counting game by deleting my message."
+                    mode="retort", 
+                    prompt="I have attempted to deceive the others playing the counting game by deleting my message."
                     )
                 await message.channel.send(content=
                     f"{deleted_response}\nThe number was {self.bot.current_count}.\n"
