@@ -34,7 +34,7 @@ search_tool = TavilySearch(max_results=10)
 
 ai_client = create_agent(
     model=ChatOpenAI(
-        model="openrouter/auto",
+        model="z-ai/glm-5",
         base_url="https://openrouter.ai/api/v1"
     ),
     tools=[search_tool]
