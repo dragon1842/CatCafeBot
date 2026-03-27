@@ -1,5 +1,3 @@
 discord
 python-dotenv
-langchain
-langchain-openai
-langchain-tavily
+aiohttp

@@ -123,4 +123,4 @@ async def on_ready():
         print(f"Error syncing commands: {str(e)}")
 
 if __name__ == "__main__":
-    bot.run(os.getenv("cat_cafe_bot_token"))
+    bot.run(os.getenv("CATCAFE_API_KEY"))
