@@ -84,7 +84,7 @@ class counting_game(commands.Cog):
         except Exception as e:
             error_reporting = self.bot.get_channel(var.testing_channel) or await self.bot.fetch_channel(var.testing_channel)
             await error_reporting.send(content=f"save_count error:\n{e}")
-            self.status_update()
+            self.status_update(bot=self.bot)
             pass
         await message.add_reaction(var.error)
         await message.channel.send(content=f"The count has been preserved by a save, try again. The next number is {self.bot.next_number}")
@@ -99,7 +99,7 @@ class counting_game(commands.Cog):
         except Exception as e:
             error_reporting = self.bot.get_channel(var.testing_channel) or await self.bot.fetch_channel(var.testing_channel)
             await error_reporting.send(content=f"save_count error:\n{e}")
-            self.status_update()
+            self.status_update(bot=self.bot)
             pass
         await message.add_reaction(var.counting_cross)
         await message.channel.send(content=f"The next number is {self.bot.next_number}")
@@ -115,7 +115,7 @@ class counting_game(commands.Cog):
         except Exception as e:
             error_reporting = self.bot.get_channel(var.testing_channel) or await self.bot.fetch_channel(var.testing_channel)
             await error_reporting.send(content=f"save_count error:\n{e}")
-            await self.status_update()
+            await self.status_update(bot=self.bot)
             pass
 
         def special_number_checker(counted_number):
