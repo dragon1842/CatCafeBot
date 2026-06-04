@@ -39,16 +39,18 @@ class counting_game(commands.Cog):
         counted_number = int(message.content)
 
         if message.author.id == self.bot.last_user_id:
+            fallback = "What are you incapable of, following the rules, or reading?"
             try:
                 repeated_user_response = await ai_response(
                     mode="retort",
-                    prompt="I've counted consequtively knowing that I shouldn't, which has broken the flow of the counting game."
+                    prompt="I've counted consequtively knowing that I shouldn't, which has broken the flow of the counting game.",
+                    fallback=fallback,
                 )
                 await message.reply(content=repeated_user_response)
             except Exception as e:
                 error_reporting = self.bot.get_channel(var.testing_channel) or await self.bot.fetch_channel(var.testing_channel)
                 await error_reporting.send(content=f"consecutive count response error:\n{e}")
-                await message.reply(content="What are you incapable of, following the rules, or reading?")
+                await message.reply(content=fallback)
             if self.bot.count_saves > 0:
                 await self.saved_count_handler(message)
             else:
@@ -56,18 +58,18 @@ class counting_game(commands.Cog):
             return
 
         if counted_number != self.bot.current_count + 1:
+            fallback = "It appears that you've either forgotten the meaning of 'consecutive' or what the next number is. Pity."
             try:
                 not_consecutive_response = await ai_response(
-                    mode="retort", 
-                    prompt="I've misread the previous number and sent in the wrong one, which has broken the flow of the counting game."
-                    )
+                    mode="retort",
+                    prompt="I've misread the previous number and sent in the wrong one, which has broken the flow of the counting game.",
+                    fallback=fallback,
+                )
                 await message.reply(content=not_consecutive_response)
             except Exception as e:
                 error_reporting = self.bot.get_channel(var.testing_channel) or await self.bot.fetch_channel(var.testing_channel)
                 await error_reporting.send(content=f"wrong number response error:\n{e}")
-                await message.reply(content=
-                    "It appears that you've either forgotten the meaning of 'consecutive' or what the next number is. Pity."
-                    )
+                await message.reply(content=fallback)
             if self.bot.count_saves > 0:
                 await self.saved_count_handler(message)
             else:
@@ -174,10 +176,12 @@ class counting_game(commands.Cog):
         if before.channel.id != var.counting_channel:
             return
         if before.id == self.bot.latest_message:
+            fallback = f"{before.author.mention} has edited their message, the sneaky devil!"
             try:
                 edited_response = await ai_response(
-                    mode="retort", 
-                    prompt="I have attempted to deceive the others playing the counting game by editing my message."
+                    mode="retort",
+                    prompt="I have attempted to deceive the others playing the counting game by editing my message.",
+                    fallback=fallback,
                 )
                 await before.channel.send(content=
                     (f"{edited_response}\nThe number was {self.bot.current_count}.\n"
@@ -197,11 +201,13 @@ class counting_game(commands.Cog):
         if message.channel.id != var.counting_channel:
             return
         if message.id == self.bot.latest_message:
+            fallback = f"{message.author.mention} has deleted their message, the sneaky devil!"
             try:
                 deleted_response = await ai_response(
-                    mode="retort", 
-                    prompt="I have attempted to deceive the others playing the counting game by deleting my message."
-                    )
+                    mode="retort",
+                    prompt="I have attempted to deceive the others playing the counting game by deleting my message.",
+                    fallback=fallback,
+                )
                 await message.channel.send(content=
                     f"{deleted_response}\nThe number was {self.bot.current_count}.\n"
                     f"The next number is {self.bot.next_number}."
