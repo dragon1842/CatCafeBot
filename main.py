@@ -124,3 +124,4 @@ async def on_ready():
 
 if __name__ == "__main__":
     bot.run(os.getenv("CATCAFE_API_KEY"))
+    pass
