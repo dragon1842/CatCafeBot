@@ -20,9 +20,6 @@ generation_model = ChatOpenAI(
     model=MODEL,
     base_url="https://openrouter.ai/api/v1",
     api_key=OPENROUTER_API_KEY,
-    openrouter_provider=
-        {"order" : ["azure"],
-         "allow_fallbacks" : True},
     )
 
 web_search = TavilySearch(
