@@ -74,7 +74,8 @@ async def ai_response(mode: str, prompt: str, fallback: str = ""):
     text = data["messages"][-1].text.strip()
 
     if mode == "ask":
-        ask_history.extend(AIMessage(text))
+        ask_history.append(user_message)
+        ask_history.append(AIMessage(text))
 
     return text
 
