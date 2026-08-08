@@ -14,7 +14,7 @@ load_dotenv()
 
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 TAVILY_API_KEY =  os.getenv("TAVILY_API_KEY")
-MODEL = "openai/gpt-5.6-sol"
+MODEL = "anthropic/claude-opus-5"
 
 generation_model = ChatOpenAI(
     model=MODEL,
