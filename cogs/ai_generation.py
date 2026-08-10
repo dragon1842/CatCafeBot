@@ -10,7 +10,7 @@ from openai import AsyncOpenAI
 load_dotenv()
 
 openai_api_key = os.getenv("openai_api_key")
-model = ASyncOpenAI(api_key = openai_api_key)
+model = AsyncOpenAI(api_key = openai_api_key)
 
 
 cmtr_sys_msg = str("You're a commentator whose purpose is to comment on user actions and messages."
@@ -67,7 +67,7 @@ async def ai_response(mode: str, prompt: str):
         ask_history.append({"role" : "user", "content" : user_message})
         ask_history.append({"role" : "assistant", "content" : text})
 
-    return text, data.input_tokens, data.output_tokens
+    return text
 
 class ai_generation(commands.Cog):
 
@@ -97,7 +97,7 @@ class ai_generation(commands.Cog):
                 "I hope you feel like a big person now, because you sure don't look like one."
             )
             try:
-                rude_response = await ai_response(mode="retort", prompt=message.content, fallback=fallback)
+                rude_response = await ai_response(mode="retort", prompt=message.content)
                 await message.reply(rude_response)
             except Exception as e:
                 error_reporting = self.bot.get_channel(var.testing_channel) or await self.bot.fetch_channel(var.testing_channel)
@@ -113,14 +113,13 @@ class ai_generation(commands.Cog):
         )
         try:
             await interaction.response.defer()
-            bot_response, bot_input_tokens, bot_output_tokens = await ai_response(mode="ask", prompt=f"{interaction.user.global_name} asks: {message}", fallback=fallback)
+            bot_response = await ai_response(mode="ask", prompt=f"{interaction.user.global_name} asks: {message}")
             ask_embed = discord.Embed(title="Your response:",
                 description=bot_response,
                 colour=interaction.user.colour)
             ask_embed.add_field(name=f"{interaction.user.name}'s question:",
                 value=message,
                 inline=False)
-            ask_embed.set_footer(text=f"Input tokens: {bot_input_tokens} | Output tokens: {bot_output_tokens}")
             await interaction.followup.send(embed=ask_embed)
         except Exception as e:
             error_reporting = self.bot.get_channel(var.testing_channel) or await self.bot.fetch_channel(var.testing_channel)
