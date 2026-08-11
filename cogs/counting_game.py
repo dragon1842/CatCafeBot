@@ -43,8 +43,7 @@ class counting_game(commands.Cog):
             try:
                 repeated_user_response = await ai_response(
                     mode="retort",
-                    prompt="I've counted consequtively knowing that I shouldn't, which has broken the flow of the counting game.",
-                    fallback=fallback,
+                    prompt="I've counted consequtively knowing that I shouldn't, which has broken the flow of the counting game."
                 )
                 await message.reply(content=repeated_user_response)
             except Exception as e:
@@ -62,8 +61,7 @@ class counting_game(commands.Cog):
             try:
                 not_consecutive_response = await ai_response(
                     mode="retort",
-                    prompt="I've misread the previous number and sent in the wrong one, which has broken the flow of the counting game.",
-                    fallback=fallback,
+                    prompt="I've misread the previous number and sent in the wrong one, which has broken the flow of the counting game."
                 )
                 await message.reply(content=not_consecutive_response)
             except Exception as e:
@@ -176,12 +174,10 @@ class counting_game(commands.Cog):
         if before.channel.id != var.counting_channel:
             return
         if before.id == self.bot.latest_message:
-            fallback = f"{before.author.mention} has edited their message, the sneaky devil!"
             try:
                 edited_response = await ai_response(
                     mode="retort",
-                    prompt="I have attempted to deceive the others playing the counting game by editing my message.",
-                    fallback=fallback,
+                    prompt="I have attempted to deceive the others playing the counting game by editing my message."
                 )
                 await before.channel.send(content=
                     (f"{edited_response}\nThe number was {self.bot.current_count}.\n"
@@ -201,12 +197,10 @@ class counting_game(commands.Cog):
         if message.channel.id != var.counting_channel:
             return
         if message.id == self.bot.latest_message:
-            fallback = f"{message.author.mention} has deleted their message, the sneaky devil!"
             try:
                 deleted_response = await ai_response(
                     mode="retort",
-                    prompt="I have attempted to deceive the others playing the counting game by deleting my message.",
-                    fallback=fallback,
+                    prompt="I have attempted to deceive the others playing the counting game by deleting my message."
                 )
                 await message.channel.send(content=
                     f"{deleted_response}\nThe number was {self.bot.current_count}.\n"
