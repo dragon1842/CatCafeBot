@@ -10,7 +10,7 @@ load_dotenv()
 
 class CatCafeBot(commands.Bot):
     def __init__(self):
-        super().__init__(command_prefix="$", intents=discord.Intents.all(), help_command=None)
+        super().__init__(command_prefix="c$", intents=discord.Intents.all(), help_command=None)
         self.current_count = 0
         self.last_user_id = None
         self.latest_message = None

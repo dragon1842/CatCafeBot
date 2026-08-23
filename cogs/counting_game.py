@@ -120,8 +120,11 @@ class counting_game(commands.Cog):
 
         def special_number_checker(counted_number):
             checker_response = []
+
             # Sequence Checker
             num_digits = list(map(int, str(counted_number)[::-1]))
+            if len(str(counted_number)) < 3:
+                return
             if all(
                 num_digits[i] - 1 == num_digits[i + 1]
                 for i in range(len(num_digits) - 1)
@@ -130,15 +133,15 @@ class counting_game(commands.Cog):
                 for i in range(len(num_digits) - 1)
             ):
                 checker_response.append(
-                "Hey, that's a perfect sequence[!]"
-                "(https://tenor.com/view/thats-it-yes-thats-it-that-right-there-omg-that-thats-what-i-mean-gif-17579879)"
+                f"**{counted_number}** is a perfect sequence[!]"
+                f"(https://tenor.com/view/thats-it-yes-thats-it-that-right-there-omg-that-thats-what-i-mean-gif-17579879)"
                     )
 
             # Palindrome Checker
             if str(counted_number) == str(counted_number)[::-1]:
                 checker_response.append(
-                "Hey, that's a palindrome[!]"
-                "(https://tenor.com/view/thats-it-yes-thats-it-that-right-there-omg-that-thats-what-i-mean-gif-17579879)"
+                f"**{counted_number}** is a palindrome[!]"
+                f"(https://tenor.com/view/thats-it-yes-thats-it-that-right-there-omg-that-thats-what-i-mean-gif-17579879)"
                     )
 
             # SixtyNice Checker
